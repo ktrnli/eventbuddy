@@ -51,7 +51,7 @@ public class User {
     }
 
     // removes Tag from one of the lists
-    public void removeUser(User removeThis, Character c) throws DoesNotContainException, NotAUserTagOption {
+    public void removeUser(Tag removeThis, Character c) throws DoesNotContainException, NotAUserTagOption {
         switch (c) {
             case 'u':
                 if (userTags.contains(removeThis)) {
