@@ -8,14 +8,13 @@ import exceptions.DoesNotContainException;
 
 public class Event {
     // event contains:
-    // - an image (optional)
     // - a title
     // - a description
     // - a date (or date range)
     // - a list of tags
     // - a list of attendees
 
-    private Image image;
+    private String imageURL;
     private String title;
     private String description;
     private Date startDate;
@@ -23,23 +22,14 @@ public class Event {
     private Set<Tag> tags;
     private Set<User> attendees;
     private String host;
-
-
-    // create an event with only one date
-    public Event(String title, String host, String description, Date startDate) {
-        this.title = title;
-        this.description = description;
-        this.startDate = startDate;
-        this.endDate = null;
-        this.host = host;
-        this.tags = new HashSet<Tag>();
-        this.attendees = new HashSet<User>();
-    }
+    private String location;
 
     // create an event with a start and end date
-    public Event(String title, String host, String description, Date startDate, Date endDate) {
+    public Event(String title, String image, String host, String location, String description, Date startDate, Date endDate) {
         this.title = title;
+        this.imageURL = image;
         this.description = description;
+        this.location = location;
         this.startDate = startDate;
         this.endDate = endDate;
         this.host = host;
@@ -73,14 +63,6 @@ public class Event {
         } else {
             throw new DoesNotContainException();
         }
-    }
-
-    public Image getImage() {
-        return image;
-    }
-
-    public void setImage(Image image) {
-        this.image = image;
     }
 
     public String getTitle() {
@@ -139,6 +121,23 @@ public class Event {
         this.host = host;
     }
 
+    public String getImageURL() {
+        return imageURL;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
+    }
+    
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -147,6 +146,7 @@ public class Event {
         result = prime * result + ((startDate == null) ? 0 : startDate.hashCode());
         result = prime * result + ((endDate == null) ? 0 : endDate.hashCode());
         result = prime * result + ((host == null) ? 0 : host.hashCode());
+        result = prime * result + ((location == null) ? 0 : location.hashCode());
         return result;
     }
 
@@ -178,6 +178,11 @@ public class Event {
             if (other.host != null)
                 return false;
         } else if (!host.equals(other.host))
+            return false;
+        if (location == null) {
+            if (other.location != null)
+                return false;
+        } else if (!location.equals(other.location))
             return false;
         return true;
     }
